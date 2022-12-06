@@ -1,5 +1,5 @@
 import NextLink from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { styled, alpha } from '@mui/material/styles';
 import { AppBar, Avatar, Badge, Box, Button, Icon, IconButton, Menu, MenuItem, Stack, Toolbar, Tooltip, Typography } from '@mui/material';
@@ -49,36 +49,55 @@ const LogoIcon = styled(Icon)(({ theme }) => ({
     },
 }));
 
-const DesktopLogo = () => {
+const DesktopLogo = (props) => {
     return (
         <NextLink passHref href='/'>
-        <Box sx={{ position: 'fixed', width: 250, left: 0, top: 0, zIndex: 0}}>
+        {/* <Box sx={{ position: 'fixed', width: 250, left: 0, top: 0, zIndex: 0}}>
             <Box sx={{position: 'relative', width: 250, height: 120, pt: 2, backgroundColor: 'background.default'}}>
                 <BoldLogoTypography sx={{position: 'absolute', left: 140, top: 13, color: '#000', fontSize: 52, zIndex: 10}} noWrap color='#000'>PDI</BoldLogoTypography>    
                 <Image alt="Perth Digital Inspections" height='70' width='158' src="/static/images/logo.svg" position="absolute"/>
                 <InterTypography sx={{position: 'absolute', left: 32, top: 80, fontSize: 13.1}} noWrap color='#000'>PERTH DIGITAL INSPECTIONS</InterTypography>
             </Box>
-        </Box>
+        </Box> */}
+        {/* <Box sx={{ position: 'fixed', width: 250, left: 0, top: 0, zIndex: 0}}> */}
+            <Box sx={{
+                position: 'absolute', 
+                top: props.smallMenu ? -35 : -70, 
+                left: props.smallMenu ? -30 : -40, 
+                width: props.smallMenu ? 180 : 350,
+                transition: 'top, left, width 0.3s ease'
+                }}>
+                <Image alt="Perth Digital Inspections" height='250' width='350' src="/static/images/logo_clean.svg"/>
+            </Box>
+        {/* </Box> */}
         </NextLink>
     );
 };
 
-const MobileLogo = () => {
+const MobileLogo = (props) => {
     return (
         <NextLink passHref href='/'>
-        <Box sx={{ position: 'fixed', width: 250, left: 0, right: 0, margin: 'auto', top: 0, zIndex: 0}}>
+            <Box sx={{position: 'fixed', top: -70, left: 0, right: 0, margin: 'auto', width: 350}}>
+                <Image alt="Perth Digital Inspections" height='250' width='350' src="/static/images/logo_clean.svg"/>
+            </Box>
+        {/* <Box sx={{ position: 'fixed', width: 250, left: 0, right: 0, margin: 'auto', top: 0, zIndex: 0}}>
             <Box sx={{position: 'relative', width: 250, height: 120, pt: 2, backgroundColor: 'background.default'}}>
                 <BoldLogoTypography sx={{position: 'absolute', left: 140, top: 13, color: '#000', fontSize: 52, zIndex: 10}} noWrap color='#000'>PDI</BoldLogoTypography>    
                 <Image alt="Perth Digital Inspections" height='70' width='158' src="/static/images/logo.svg" position="absolute"/>
                 <InterTypography sx={{position: 'absolute', left: 32, top: 80, fontSize: 13.1}} noWrap color='#000'>PERTH DIGITAL INSPECTIONS</InterTypography>
             </Box>
-        </Box>
+        </Box> */}
         </NextLink>
     );
 };
 
 export const ApplicationTopBar = ({mobileView, ...props}) => {
     const [menuOpen, setMenuOpen] = useState(false);
+    const [smallMenu, setSmallMenu] = useState(false);
+
+    const topBarHeightSmall = 60;
+    const topBarHeightLarge = 120;
+
     const handleMobileMenuOpen = (event) => {
         setMenuOpen(true);
         alert('menu open');
@@ -88,23 +107,39 @@ export const ApplicationTopBar = ({mobileView, ...props}) => {
 
     };
 
+    useEffect(() => {
+      window.onscroll = () => {
+        if (window.pageYOffset == 0) {
+            setSmallMenu(false);
+            return;
+        }
+        if (window.pageYOffset > 60) {
+            setSmallMenu(true);
+        }
+      };
+    }, []);
+
     return (
         <Box {...props}>
 
             <ApplicationTopBarRoot
                 sx={{
                     width: '100%',
-                    height: 120
+                    height: smallMenu ? topBarHeightSmall : topBarHeightLarge,
+                    transition: "height 0.5s ease",
                 }}
                 {...props}>
                     
                 <Toolbar
                     disableGutters
                     sx={{
-                        height: 120,
+                        height: smallMenu ? topBarHeightSmall : topBarHeightLarge,
+                        transition: "height 0.5s ease",
                         px: 2,
                         justifyContent: 'center'
                     }}>
+                    
+
                     { mobileView && <PopupMenu><MainMenu type="contained" size={34} /></PopupMenu>}
 
                     <Box sx={{ flexGrow: 1 }} />
@@ -114,7 +149,7 @@ export const ApplicationTopBar = ({mobileView, ...props}) => {
                 
                 </Toolbar>
                 
-                { mobileView ? MobileLogo() : DesktopLogo() }
+                { mobileView ? <MobileLogo smallMenu={smallMenu} /> : <DesktopLogo smallMenu={smallMenu} /> }
                 
             </ApplicationTopBarRoot>
             

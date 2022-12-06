@@ -17,7 +17,7 @@ const BoldTypography = styled(Typography)(({ theme }) => ({
 
 export const Footer = ({ props }) => {
     return (
-        <BlueBox>
+        <BlueBox sx={{width: '100%'}}>
             <Container sx={{ width: '100%', my: 5, alignItems: 'center' }}>
                 <Box sx={{width: '100%', justifyContent: 'center', display: 'flex'}}>
                     <LightTypography variant="body1" textAlign='center' color="primary.contrastText"><em>Thank you for visiting</em></LightTypography>

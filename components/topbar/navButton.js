@@ -142,8 +142,8 @@ export const NavMenuButton = (props) => {
                 {items.map( i => {
                     const active = i.href ? (router.pathname === i.href) : false;
                     return (
-                        <NextLink href={i.href} passHref>
-                            <NavMenuItem key={i.title} onClick={handleSmClose}>
+                        <NextLink key={i.title} href={i.href} passHref>
+                            <NavMenuItem onClick={handleSmClose}>
                                 {i.icon}
                                 <Typography sx={{ml:2}} fontSize={size} color={active ? "secondary" : "primary.contrastText"}>
                                 {i.title}

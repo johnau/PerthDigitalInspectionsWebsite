@@ -74,12 +74,12 @@ export const MainBanner = ({ props }) => {
 
                 <Stack direction="row" spacing={2} sx={{ position: 'absolute', minWidth: 700, margin: 'auto', left: 0, right: 0, bottom: 30, justifyContent: 'center', zIndex: '99' }}>
                     <NextLink href='/services/residential' passHref>
-                        <Button variant="contained" color="primary">
+                        <Button variant="contained" color="primary" sx={{fontSize: 20}}>
                             Residential Services
                         </Button>
                     </NextLink>
                     <NextLink href='/services/commercial' passHref>
-                        <Button variant="contained" color="secondary">
+                        <Button variant="contained" color="secondary" sx={{fontSize: 20}}>
                             Commercial Services
                         </Button>
                     </NextLink>
