@@ -3,7 +3,7 @@ import { NavLinkButton, NavMenuButton } from './navButton';
 
 import { Navigation as navMenuItems } from '../../data/navigation';
 
-export const MainMenu = ({type, size, action, ...props}) => {
+export const MainMenu = ({type, size, action, showIcons, ...props}) => {
     return (
         <Stack 
             direction={type === 'top' ? "row" : "column"} 
@@ -13,9 +13,9 @@ export const MainMenu = ({type, size, action, ...props}) => {
 
             { navMenuItems.map( mi => {
                 if (mi.items) {
-                    return (<NavMenuButton key={mi.title} sx={{justifyContent: 'center'}} items={mi.items} size={size} icon={mi.icon} />);
+                    return (<NavMenuButton key={mi.title} sx={{justifyContent: 'center'}} items={mi.items} size={size} icon={mi.icon} showIcons={showIcons} />);
                 } else {
-                    return (<NavLinkButton key={mi.title} sx={{justifyContent: 'center'}} title={mi.title} href={mi.href} icon={mi.icon} size={size}/>); 
+                    return (<NavLinkButton key={mi.title} sx={{justifyContent: 'center'}} title={mi.title} href={mi.href} icon={mi.icon} size={size} showIcons={showIcons} />); 
                 }
             })}
 

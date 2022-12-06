@@ -58,7 +58,7 @@ export const ApplicationLayout = (props) => {
                 >
                     {children}
                 </Box>
-                <Footer sx={{ flex: '0'}} />
+                <Footer sx={{ mt: 'auto', flex: 1}} />
             </ApplicationLayoutRoot>
             <RequestQuoteFab/>    
             <ApplicationTopBar mobileView={mobileView} />

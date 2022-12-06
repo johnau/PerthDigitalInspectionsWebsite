@@ -53,7 +53,7 @@ const StyledMenu = styled((props) => (
 
 
 export const NavLinkButton = (props) => {
-    const { href, icon, title, size, ...rest } = props;
+    const { href, icon, title, size, showIcons, ...rest } = props;
     const router = useRouter();
     const active = href ? (router.pathname === href) : false;
   
@@ -66,7 +66,7 @@ export const NavLinkButton = (props) => {
             <NavButton 
                 variant={active ? "outlined" : "text"} 
                 color={active ? "secondary" : "primary"}>
-                    {icon} <Typography  sx={{ml:2}} fontSize={size}>{title}</Typography>
+                    {showIcons && icon} <Typography  sx={{ml:showIcons ? 2 : 0}} fontSize={size}>{title}</Typography>
             </NavButton>
         </NextLink>
     </ListItem>
@@ -74,7 +74,7 @@ export const NavLinkButton = (props) => {
 };
 
 export const NavActionButton = (props) => {
-    const { icon, title, size, action, ...rest } = props;
+    const { icon, title, size, action, showIcons, ...rest } = props;
 
     return (
     <ListItem
@@ -85,14 +85,14 @@ export const NavActionButton = (props) => {
             variant="text" 
             color="primary"
             onClick={action ? action : null}>
-                {icon} <Typography sx={{ml:2}} fontSize={size}>{title}</Typography>
+                {icon} <Typography sx={{ml:showIcons ? 2 : 0}} fontSize={size}>{title}</Typography>
         </NavButton>
     </ListItem>
     );
 };
 
 export const NavMenuButton = (props) => {
-    const { items, size, icon, ...rest} = props;
+    const { items, size, icon, showIcons, ...rest} = props;
     const router = useRouter();
     const [smAnchorEl, setSmAnchorEl] = useState(null);
     const smOpen = Boolean(smAnchorEl);
@@ -128,7 +128,7 @@ export const NavMenuButton = (props) => {
                     onClick={handleSmOpen}
                     endIcon={<KeyboardArrowDownIcon />}
                     >
-                        {icon} <Typography sx={{ml:2}} fontSize={size}>Services</Typography>
+                        {showIcons && icon} <Typography sx={{ml:showIcons ? 2 : 0}} fontSize={size}>Services</Typography>
                 </NavButton>
             </ListItem>
             <StyledMenu
@@ -144,8 +144,8 @@ export const NavMenuButton = (props) => {
                     return (
                         <NextLink key={i.title} href={i.href} passHref>
                             <NavMenuItem onClick={handleSmClose}>
-                                {i.icon}
-                                <Typography sx={{ml:2}} fontSize={size} color={active ? "secondary" : "primary.contrastText"}>
+                                {showIcons && i.icon}
+                                <Typography sx={{ml:showIcons ? 2 : 0}} fontSize={size} color={active ? "secondary" : "primary.contrastText"}>
                                 {i.title}
                                 </Typography>
                             </NavMenuItem>

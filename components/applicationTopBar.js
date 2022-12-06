@@ -147,13 +147,17 @@ export const ApplicationTopBar = ({mobileView, ...props}) => {
                     }}>
                     
 
-                    { mobileView && <PopupMenu><MainMenu type="contained" size={34} /></PopupMenu>}
+                    
 
                     <Box sx={{ flexGrow: 1 }} />
                         {/* {mobileView ? <MobileMenu /> : <DesktopMenu />} */}
-                        {!mobileView && <MainMenu type="top" size={20} /> }
+                        {!mobileView && <MainMenu type="top" size={20} showIcons={false} /> }
                     <Box sx={{ flexGrow: 1}} />
                 
+
+                    { mobileView && <PopupMenu><MainMenu type="contained" size={34} showIcons={true} /></PopupMenu>}
+
+                    
                 </Toolbar>
                 
                 { mobileView ? <MobileLogo smallMenu={smallMenu} /> : <DesktopLogo smallMenu={smallMenu} /> }
