@@ -8,6 +8,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import Image from 'next/image';
 import { MainMenu } from './topbar/mainMenu';
 import { PopupMenu } from './topbar/popupMenu';
+import { PortableWifiOffSharp } from '@mui/icons-material';
 
 export let interFontTheme = createTheme({
     typography: {
@@ -77,7 +78,13 @@ const DesktopLogo = (props) => {
 const MobileLogo = (props) => {
     return (
         <NextLink passHref href='/'>
-            <Box sx={{position: 'fixed', top: -70, left: 0, right: 0, margin: 'auto', width: 350}}>
+            <Box sx={{
+                position: 'absolute', 
+                top: props.smallMenu ? -35 : -70, 
+                left: 0, 
+                right: 0, 
+                margin: 'auto', 
+                width: props.smallMenu ? 180 : 350}}>
                 <Image alt="Perth Digital Inspections" height='250' width='350' src="/static/images/logo_clean.svg"/>
             </Box>
         {/* <Box sx={{ position: 'fixed', width: 250, left: 0, right: 0, margin: 'auto', top: 0, zIndex: 0}}>
