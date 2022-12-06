@@ -6,9 +6,8 @@ import { styled } from '@mui/material/styles';
 import RequestQuoteIcon from '@mui/icons-material/RequestQuote';
 
 const BoxBottomRight = styled(Box)(({ theme }) => ({
-    position: 'fixed',
-    right: 40,
-    bottom: 40
+    
+
 }));
 
 const DarkFab = styled(Fab)(({ theme }) => ({
@@ -19,20 +18,37 @@ const DarkFab = styled(Fab)(({ theme }) => ({
     '&:hover': {
         backgroundColor: theme.palette.secondary.main,
         color: theme.palette.background.dark,
-     },
+    },
 
     boxShadow: theme.shadows[8],
-    fontSize: 18
+
 }));
 
 
-export default function RequestQuoteFab() {
-  return (
-    <BoxBottomRight sx={{ '& > :not(style)': { m: 0.5 } }}>
-      <DarkFab variant="extended" aria-label="add">
-        <RequestQuoteIcon sx={{ mr: 1 }} />
-        Request a Quote
-      </DarkFab>
-    </BoxBottomRight>
-  );
+export const RequestQuoteFab = ({ pagePos, ...props }) => {
+
+    return (
+        <BoxBottomRight
+            {...props}
+            sx={{
+                '& > :not(style)': { m: 0.5 },
+                position: pagePos === 'floating' ? 'fixed' : 'relative',
+                right: pagePos === 'floating' ? 40 : 0,
+                bottom: pagePos === 'floating' ? 40 : 0,
+                transition: 'bottom, margin 0.4s ease',
+                my: pagePos === 'floating' ? 0 : 5,
+            }}
+        >
+            <DarkFab variant="extended" aria-label="add"
+            sx={{
+                fontSize: pagePos === 'floating' ? 18 : 40
+            }}>
+                <RequestQuoteIcon sx={{ 
+                    mr: 1,
+                    fontSize: pagePos === 'floating' ? 18 : 40
+                }}/>
+                Request a Quote
+            </DarkFab>
+        </BoxBottomRight>
+    );
 }

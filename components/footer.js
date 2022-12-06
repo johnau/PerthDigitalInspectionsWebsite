@@ -3,10 +3,6 @@ import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Image from "next/image";
 
-const BlueBox = styled(Box)(({ theme }) => ({
-    backgroundColor: theme.palette.background.dark
-}));
-
 const LightTypography = styled(Typography)(({ theme }) => ({
     fontFamily: "InterLight, sans-serif",
 }));
@@ -15,9 +11,9 @@ const BoldTypography = styled(Typography)(({ theme }) => ({
     fontFamily: "InterBold, sans-serif",
 }));
 
-export const Footer = ({ props }) => {
+export const Footer = (props) => {
     return (
-        <BlueBox sx={{width: '100%'}}>
+        <Box sx={{minWidth: 700}} {...props}>
             <Container sx={{ width: '100%', my: 5, alignItems: 'center' }}>
                 <Box sx={{width: '100%', justifyContent: 'center', display: 'flex'}}>
                     <LightTypography variant="body1" textAlign='center' color="primary.contrastText"><em>Thank you for visiting</em></LightTypography>
@@ -46,7 +42,7 @@ export const Footer = ({ props }) => {
                     </Stack>
                 </Box>
             </Container>
-        </BlueBox>
+        </Box>
     );
 
 };

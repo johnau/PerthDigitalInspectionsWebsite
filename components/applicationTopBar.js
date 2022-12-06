@@ -53,14 +53,6 @@ const LogoIcon = styled(Icon)(({ theme }) => ({
 const DesktopLogo = (props) => {
     return (
         <NextLink passHref href='/'>
-        {/* <Box sx={{ position: 'fixed', width: 250, left: 0, top: 0, zIndex: 0}}>
-            <Box sx={{position: 'relative', width: 250, height: 120, pt: 2, backgroundColor: 'background.default'}}>
-                <BoldLogoTypography sx={{position: 'absolute', left: 140, top: 13, color: '#000', fontSize: 52, zIndex: 10}} noWrap color='#000'>PDI</BoldLogoTypography>    
-                <Image alt="Perth Digital Inspections" height='70' width='158' src="/static/images/logo.svg" position="absolute"/>
-                <InterTypography sx={{position: 'absolute', left: 32, top: 80, fontSize: 13.1}} noWrap color='#000'>PERTH DIGITAL INSPECTIONS</InterTypography>
-            </Box>
-        </Box> */}
-        {/* <Box sx={{ position: 'fixed', width: 250, left: 0, top: 0, zIndex: 0}}> */}
             <Box sx={{
                 position: 'absolute', 
                 top: props.smallMenu ? -35 : -70, 
@@ -70,7 +62,6 @@ const DesktopLogo = (props) => {
                 }}>
                 <Image alt="Perth Digital Inspections" height='250' width='350' src="/static/images/logo_clean.svg"/>
             </Box>
-        {/* </Box> */}
         </NextLink>
     );
 };
@@ -84,16 +75,11 @@ const MobileLogo = (props) => {
                 left: 0, 
                 right: 0, 
                 margin: 'auto', 
-                width: props.smallMenu ? 180 : 350}}>
+                width: props.smallMenu ? 180 : 350,
+                transition: 'top, left, width 0.3s ease'
+                }}>
                 <Image alt="Perth Digital Inspections" height='250' width='350' src="/static/images/logo_clean.svg"/>
             </Box>
-        {/* <Box sx={{ position: 'fixed', width: 250, left: 0, right: 0, margin: 'auto', top: 0, zIndex: 0}}>
-            <Box sx={{position: 'relative', width: 250, height: 120, pt: 2, backgroundColor: 'background.default'}}>
-                <BoldLogoTypography sx={{position: 'absolute', left: 140, top: 13, color: '#000', fontSize: 52, zIndex: 10}} noWrap color='#000'>PDI</BoldLogoTypography>    
-                <Image alt="Perth Digital Inspections" height='70' width='158' src="/static/images/logo.svg" position="absolute"/>
-                <InterTypography sx={{position: 'absolute', left: 32, top: 80, fontSize: 13.1}} noWrap color='#000'>PERTH DIGITAL INSPECTIONS</InterTypography>
-            </Box>
-        </Box> */}
         </NextLink>
     );
 };
@@ -120,7 +106,7 @@ export const ApplicationTopBar = ({mobileView, ...props}) => {
             setSmallMenu(false);
             return;
         }
-        if (window.pageYOffset > 60) {
+        if (window.pageYOffset > 50) {
             setSmallMenu(true);
         }
       };
@@ -133,7 +119,7 @@ export const ApplicationTopBar = ({mobileView, ...props}) => {
                 sx={{
                     width: '100%',
                     height: smallMenu ? topBarHeightSmall : topBarHeightLarge,
-                    transition: "height 0.5s ease",
+                    transition: "height 0.3s ease",
                 }}
                 {...props}>
                     
@@ -141,23 +127,18 @@ export const ApplicationTopBar = ({mobileView, ...props}) => {
                     disableGutters
                     sx={{
                         height: smallMenu ? topBarHeightSmall : topBarHeightLarge,
-                        transition: "height 0.5s ease",
+                        transition: "height 0.3s ease",
                         px: 2,
                         justifyContent: 'center'
                     }}>
-                    
-
-                    
 
                     <Box sx={{ flexGrow: 1 }} />
                         {/* {mobileView ? <MobileMenu /> : <DesktopMenu />} */}
                         {!mobileView && <MainMenu type="top" size={20} showIcons={false} /> }
                     <Box sx={{ flexGrow: 1}} />
-                
 
                     { mobileView && <PopupMenu><MainMenu type="contained" size={34} showIcons={true} /></PopupMenu>}
 
-                    
                 </Toolbar>
                 
                 { mobileView ? <MobileLogo smallMenu={smallMenu} /> : <DesktopLogo smallMenu={smallMenu} /> }

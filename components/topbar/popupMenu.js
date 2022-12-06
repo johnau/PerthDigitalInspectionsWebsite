@@ -23,15 +23,21 @@ export const PopupMenu = (props) => {
     return (
         <>
             <MenuBurgerButton onClick={handleOpen}>
-                <MenuIcon sx={{ width: 50, height: 50}}/>
+                <MenuIcon sx={{ width: 40, height: 40, mt: -0.5}}/>
             </MenuBurgerButton>
             <Modal
                 open={open}
                 onClose={handleClose}
                 sx={{ display: 'flex', width: '100%', justifyContent: 'center' }}>
                 <Box sx={{ display: 'flex', flexDirection: 'column', width: 500, height: 700, justifyContent: 'center'}}>
-                    <NavActionButton title="Close menu" action={handleClose} icon={<CloseIcon /> }
-                    sx={{backgroundColor: 'background.dark', pb: 10}} />
+                    <NavActionButton 
+                    title="Close menu" 
+                    action={handleClose} 
+                    icon={<CloseIcon /> }
+                    sx={{
+                        backgroundColor: 'background.dark', 
+                        pb: 10
+                        }} />
                     {props.children}
                     <Box sx={{backgroundColor: 'background.dark', height: 100}} />
                 </Box>

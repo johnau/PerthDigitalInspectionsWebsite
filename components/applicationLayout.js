@@ -1,18 +1,47 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useLayoutEffect, useRef, useMemo } from 'react';
 import { Box, Container } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { ApplicationTopBar } from './applicationTopBar';
-import RequestQuoteFab from './requestQuoteFab';
+import { RequestQuoteFab } from './requestQuoteFab';
 import { Footer } from './footer';
 
 const ApplicationLayoutRoot = styled('div')(({ theme }) => ({
-    display: 'flex',
-    flex: '1 1 auto',
-    flexDirection: 'column',
-    width: '100%',
-    minHeight: '100vh',
-    paddingTop: 64,
+    // display: 'flex',
+    // display: '-webkit-box',
+    // display: '-moz-box',
+    // display: '-ms-flexbox',
+    // display: '-webkit-flex',
+    // flexDirection: 'column',
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    // width: '100vw',
+    // minHeight: '100vh',
+    paddingTop: 120,
+    width: '100%'
 }));
+
+const useVisibility = (offset = 0) => {
+    const [isVisible, setIsVisible] = useState(false);
+    const currentElement = useRef(null);
+  
+    const onScroll = () => {
+      if (!currentElement.current) {
+        setIsVisible(false);
+        return;
+      }
+      const top = currentElement.current.getBoundingClientRect().top;
+      setIsVisible(top + offset >= 0 && top - offset <= window.innerHeight);
+      console.log("Visible: ", top + offset >= 0 && top - offset <= window.innerHeight);
+      console.log("Visible by: ", window.innerHeight - top);
+    }
+  
+    useEffect(() => {
+      document.addEventListener('scroll', onScroll, true);
+      return () => document.removeEventListener('scroll', onScroll, true);
+    })
+  
+    return [isVisible, currentElement];
+}
 
 export const ApplicationLayout = (props) => {
     const { children } = props;
@@ -44,23 +73,52 @@ export const ApplicationLayout = (props) => {
         }
     }, []);
 
+    
+
+    const [beforeCheckoutSubmitShown, beforeCheckoutSubmitRef] = useVisibility();
+    const [rqFabBuffer, setRqFabBuffer] = useState(0);
+
+    const onScroll = () => {
+        let buffer = window.innerHeight - beforeCheckoutSubmitRef.current.getBoundingClientRect().top;
+        if (buffer > 0) {
+            setRqFabBuffer(buffer);
+            console.log("Set buffer: ", buffer);
+        } else {
+            setRqFabBuffer(0);
+            console.log("Set buffer: 0");
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('scroll', onScroll, true);
+        return () => document.removeEventListener('scroll', onScroll, true);
+    });
+
     return (
         <>
-            <ApplicationLayoutRoot>
+            <ApplicationLayoutRoot
+                sx={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    flexDirection: 'column',
+                    minHeight: '100vh'
+                }}>
                 <Box sx={{
-                    flex: '1',
-                    flexGrow: 'stretch',
-                    // flexDirection: 'column',
+                    flexGrow: 1,
                     width: '100%',
-                    height: '100%',
-                    mt: '56px',
-                }}
-                >
+                    minHeight: 850
+                }}>
                     {children}
                 </Box>
-                <Footer sx={{ mt: 'auto', flex: 1}} />
+                <Box ref={beforeCheckoutSubmitRef} sx={{ display: 'flex', justifyContent: 'center'}}>
+                    <RequestQuoteFab pagePos={beforeCheckoutSubmitShown ? 'in-page' : 'floating'} />  
+                </Box>
+                <Box sx={{backgroundColor: "background.dark"}}>
+                    <Footer />
+                </Box>
             </ApplicationLayoutRoot>
-            <RequestQuoteFab/>    
+        
+            
             <ApplicationTopBar mobileView={mobileView} />
         </>
     );

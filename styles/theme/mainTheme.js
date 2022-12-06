@@ -31,7 +31,7 @@ const mainTheme = createTheme({
       main: '#ffbb00',
       light: '#ffd359',
       dark: '#ffaa00',
-      contrastText: '#666'
+      contrastText: '#333'
     },
     background: {
       default: '#F9FAFC',
