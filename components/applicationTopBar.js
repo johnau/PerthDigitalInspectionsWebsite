@@ -24,7 +24,8 @@ const NavButton = styled(Button)(({ theme }) => ({
 
 const ApplicationTopBarRoot = styled(AppBar)(({ theme }) => ({
     backgroundColor: theme.palette.background.dark,
-    boxShadow: theme.shadows[8]
+    boxShadow: theme.shadows[8],
+    borderBottom: '1px solid ' + theme.palette.neutral[700]
 }));
 
 const InterTypography = styled(Typography)(({ theme }) => ({

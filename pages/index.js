@@ -12,6 +12,8 @@ import { CompanyBanner } from '../components/home/companyBanner';
 import { ServicesList as servicesList } from '../data/servicesList';
 import { IndexContent as indexContent } from '../data/indexContent';
 
+import { Panorama } from '../components/pano';
+
 const LogoTileBgStack = styled(Stack)(({ theme }) => ({
     ":before" : {
         content: `''`,
@@ -42,6 +44,7 @@ const ApplicationIndex = () => {
             <MainBanner/>
             <Stack spacing={0}>
                 <AboutBanner />
+                <Panorama />
                 <TitleBanner title={indexContent.servicesTitle} />
                 <LogoTileBgStack spacing={16} sx={{ backdropFilter: 'blur(0)', overflow: 'hidden'}}> {/* For some reason backdropFilter: has to be included for the background to show.... odd */}
                 {
