@@ -20,6 +20,8 @@ const ApplicationLayoutRoot = styled('div')(({ theme }) => ({
     width: '100%'
 }));
 
+
+
 const useVisibility = (offset = 0) => {
     const [isVisible, setIsVisible] = useState(false);
     const currentElement = useRef(null);

@@ -16,6 +16,23 @@ import { IndexContent as indexContent } from '../data/indexContent';
 
 import ReactPannellum, { getConfig } from "react-pannellum";
 
+const PanoramaRoot = styled(ReactPannellum)(({ theme }) => ({
+    '.pnlm-about-msg' : {
+        display: 'none !important'
+    },
+    '.pnlm-load-box' : {
+        backgroundColor: 'transparent',
+        fontSize: 14
+    },
+    '.pnlm-panorama-info': {
+        // backgroundColor: 'transparent',
+        opacity: 0.3
+    },
+    '.pnlm-compass': {
+        
+    }
+}));
+
 const LogoTileBgStack = styled(Stack)(({ theme }) => ({
     ":before" : {
         content: `''`,
@@ -35,12 +52,25 @@ const LogoTileBgStack = styled(Stack)(({ theme }) => ({
 
 const ApplicationIndex = () => {
     const config = {
-        autoRotate: -2,
+        autoRotate: -4,
         autoRotateInactivityDelay: 5000,
         autoLoad: true,
         compass: true,
+        northOffset: 215,
         mouseZoom : false,
-        
+        keyboardZoom: false,
+        doubleClickZoom: true,
+        preview: '/static/images/aerial.png',
+        uiText: {
+            loadingLabel: 'Loading...',
+        },
+        avoidShowingBackground: true,
+        maxPitch: 30,
+        hfov: 100.0,
+        draggable: true,
+        showZoomCtrl: false,
+        showFullscreenCtrl: false,
+        title: 'Port Coogee, Western Australia'
     };
 
     return (
@@ -61,16 +91,27 @@ const ApplicationIndex = () => {
                         display: 'flex',
                         justifyContent: 'center'
                     }}>
-                <ReactPannellum
-                    id="1"
+                <PanoramaRoot
+                    id="2"
                     sceneId="pano-coogee"
-                    imageSource="/static/images/PanoCoogee.jpg"
+                    // imageSource="/static/images/PanoCoogee.jpg"
                     config={config}
+                    type='multires'
                     style={{
                         width: "100%",
-                        height: "400px",
+                        height: "800px",
                         background: "#000000"
-                      }}
+                    }}
+                    multiRes={{
+                        basePath: "/static/images/pano",
+                        shtHash: "5T~qIUWVMxWXa|RPoKayf6ofj?j[j[j@xuayaza#fRfQWXWCa#o0ayfkofj[ayayWBjYfRa#js",
+                        path: "/%l/%s%y_%x",
+                        fallbackPath: "/fallback/%s",
+                        extension: "jpg",
+                        tileResolution: 512,
+                        maxLevel: 5,
+                        cubeResolution: 4656
+                    }}
                     />
                 </Box>
 
