@@ -108,6 +108,8 @@ export const ApplicationTopBar = ({mobileView, ...props}) => {
         }
         if (window.pageYOffset > 50) {
             setSmallMenu(true);
+        } else {
+            setSmallMenu(false);
         }
       };
     }, []);

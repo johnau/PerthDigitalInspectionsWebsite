@@ -22,7 +22,7 @@ const mainTheme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#3a6aba',
+      main: '#0652cf',
       light: '#828DF8',
       dark: '#335691',
       contrastText: '#FFFFFF'
@@ -36,7 +36,7 @@ const mainTheme = createTheme({
     background: {
       default: '#F9FAFC',
       paper: '#FFFFFF',
-      dark: '#0d1c42',
+      dark: '#111', //#0e172e
       light: '#ccc'
     },
     neutral: {

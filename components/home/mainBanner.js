@@ -11,8 +11,8 @@ const BlackOnWhiteTypography = styled(Typography)(({ theme }) => ({
     padding: 4
 }));
 const BlackOnWhiteStack = styled(Stack)(({ theme }) => ({
-    backgroundColor: "rgba(230,230,230,.7)",
-    color: "#222",
+    // backgroundColor: "rgba(230,230,230,.7)",
+    // color: "#222",
     padding: 4
 }));
 
@@ -42,8 +42,8 @@ export const MainBanner = ({ props }) => {
 
     return (
 
-            <Box sx={{ position: 'relative', left: 0, top: 0, p:0, m:0, width: '100%', height: 600, minWidth: 700, overflow: 'hidden' }}>
-                <Carousel
+            <Box sx={{ position: 'relative', left: 0, top: 0, p:0, m:0, width: '100%', height: 1000, minWidth: 700, overflow: 'hidden' }}>
+                {/* <Carousel
                     sx={{ width: '100%', height: 600}}
                     interval={8000}
                     duration={1000}
@@ -55,21 +55,45 @@ export const MainBanner = ({ props }) => {
                 {
                     images.map( (item, i) => <CoverImage key={i} src={item} layout='fill' loading="lazy"/> )
                 }
-                </Carousel>
+                </Carousel> */}
 
-                <BlackOnWhiteStack sx={{ position: 'absolute', width: 700, height: 330, margin: 'auto', left: 0, right: 0, top: 100, display: 'flex', justifyContent: 'center', zIndex: '99' }} spacing={0}>
-                    <InterTypographyLight color='primary.contrastText' sx={{ position: 'relative', top: 80, width: 200, margin: 'auto', textAlign:'center' }} variant="h6">
+                <CoverImage src='/static/images/perth.jfif' layout='fill'/>
+
+                <BlackOnWhiteStack 
+                    spacing={0}
+                    sx={{ 
+                        position: 'absolute', 
+                        width: 700, 
+                        height: 330, 
+                        margin: 'auto', 
+                        left: 0, 
+                        right: 0, 
+                        top: 100, 
+                        display: 'flex', 
+                        justifyContent: 'center', 
+                        zIndex: '99' 
+                    }}>
+                    <InterTypographyLight 
+                        color='primary.contrastText' 
+                        sx={{ 
+                            position: 'relative', 
+                            top: 50, 
+                            width: 200, 
+                            margin: 'auto', 
+                            textAlign:'center', 
+                            color: 'primary.contrastText' 
+                            }} 
+                        variant="h6">
                         <em>WELCOME TO</em>
                     </InterTypographyLight>
-                    <Box sx={{width: '100%'}}>
-                        <Image alt="" width="650" height="350" src="/static/images/logo_clean_black.svg" />
+                    <Box sx={{width: '100%', height: 400, position: 'relative', top: -40}}>
+                        <Image alt="" width="650" height="350" src="/static/images/logo_clean.svg" />
                     </Box>
-                    <InterTypographyMedium 
-                        color='primary.contrastText'
+                    <InterTypographyLight
                         variant="h5"
-                        sx={{ position: 'relative', width: 690, top: -85, textAlign:'center'}}>
-                            <em>Providing virtual tour, aerial panorama, and surface analysis services to the Perth and Peel regions</em>
-                    </InterTypographyMedium>
+                        sx={{ position: 'relative', width: '100%', bottom: 100, textAlign:'center', color:'primary.contrastText'}}>
+                            <em>Surface Anaylsis, Virtual Tour, and Aerial Photography services for Perth and Peel regions</em>
+                    </InterTypographyLight>
                 </BlackOnWhiteStack>
 
                 <Stack direction="row" spacing={2} sx={{ position: 'absolute', minWidth: 700, margin: 'auto', left: 0, right: 0, bottom: 30, justifyContent: 'center', zIndex: '99' }}>
