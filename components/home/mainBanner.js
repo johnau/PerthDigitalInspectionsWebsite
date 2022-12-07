@@ -42,7 +42,18 @@ export const MainBanner = ({ props }) => {
 
     return (
 
-            <Box sx={{ position: 'relative', left: 0, top: 0, p:0, m:0, width: '100%', height: 1000, minWidth: 700, overflow: 'hidden' }}>
+            <Box sx={{ 
+                position: 'relative', 
+                left: 0, 
+                top: 0, 
+                p:0, 
+                m:0, 
+                width: '100%', 
+                height: 1000, 
+                minWidth: 700, 
+                overflow: 'hidden',
+                backgroundColor: 'background.dark'
+                }}>
                 {/* <Carousel
                     sx={{ width: '100%', height: 600}}
                     interval={8000}
