@@ -31,8 +31,6 @@ const useVisibility = (offset = 0) => {
       }
       const top = currentElement.current.getBoundingClientRect().top;
       setIsVisible(top + offset >= 0 && top - offset <= window.innerHeight);
-      console.log("Visible: ", top + offset >= 0 && top - offset <= window.innerHeight);
-      console.log("Visible by: ", window.innerHeight - top);
     }
   
     useEffect(() => {
@@ -82,10 +80,8 @@ export const ApplicationLayout = (props) => {
         let buffer = window.innerHeight - beforeCheckoutSubmitRef.current.getBoundingClientRect().top;
         if (buffer > 0) {
             setRqFabBuffer(buffer);
-            console.log("Set buffer: ", buffer);
         } else {
             setRqFabBuffer(0);
-            console.log("Set buffer: 0");
         }
     };
 
