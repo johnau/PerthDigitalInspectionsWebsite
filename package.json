@@ -1,0 +1,44 @@
+{
+  "name": "mcpedia-nextjs-mui5",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@date-io/date-fns": "^2.16.0",
+    "@emotion/cache": "^11.10.3",
+    "@emotion/react": "^11.10.4",
+    "@emotion/server": "^11.10.0",
+    "@emotion/styled": "^11.10.4",
+    "@fontsource/inter": "^4.5.14",
+    "@fontsource/roboto": "^4.5.8",
+    "@fortawesome/free-solid-svg-icons": "^6.2.0",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@mui/icons-material": "^5.10.3",
+    "@mui/lab": "^5.0.0-alpha.99",
+    "@mui/material": "^5.10.5",
+    "@mui/styled-engine-sc": "^5.10.3",
+    "@mui/x-date-pickers": "^5.0.2",
+    "date-fns": "^2.29.3",
+    "is-hotkey": "^0.2.0",
+    "next": "12.3.0",
+    "prop-types": "^15.8.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-material-ui-carousel": "^3.4.2",
+    "react-pannellum": "^0.2.13",
+    "slate": "^0.82.1",
+    "slate-history": "^0.66.0",
+    "slate-react": "^0.83.1",
+    "styled-components": "^5.3.5",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "eslint": "8.23.1",
+    "eslint-config-next": "12.3.0"
+  }
+}
