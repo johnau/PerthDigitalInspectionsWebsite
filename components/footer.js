@@ -20,7 +20,7 @@ export const Footer = (props) => {
                 </Box>
                 <Stack direction="row" sx={{ width: '100%', justifyContent: 'center'}}>
                     <Image alt="" width="200px" height="130px" src="/static/images/logo_blue.svg" />
-                    <BoldTypography sx={{ fontSize: 58, mt: 2.8, ml: -3}} textAlign='left' color="primary.contrastText">PERTH DIGITAL INSPECTIONS</BoldTypography>
+                    <BoldTypography sx={{ fontSize: 20, mt: 2.8, ml: -3}} textAlign='left' color="primary.contrastText">PERTH DIGITAL INSPECTIONS</BoldTypography>
                 </Stack>
                 <Box sx={{display: 'flex', flexWrap: 'wrap', width: '100%', justifyContent: 'center' }}>
                     <Stack sx={{ width: 300 }} spacing={2}>

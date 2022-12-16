@@ -1,5 +1,6 @@
 import ReactPannellum, { getConfig } from "react-pannellum";
 import { styled } from '@mui/material/styles';
+// import loadingImage from '../public/static/images/aerial.png';
 
 const PanoramaRoot = styled(ReactPannellum)(({ theme }) => ({
     '.pnlm-about-msg' : {
@@ -21,7 +22,7 @@ const PanoramaRoot = styled(ReactPannellum)(({ theme }) => ({
 export const PanoramaPannellum = (props) => {
 
     const config = {
-        autoRotate: -4,
+        autoRotate: -10,
         autoRotateInactivityDelay: 5000,
         autoLoad: true,
         compass: true,
@@ -45,7 +46,7 @@ export const PanoramaPannellum = (props) => {
     return (
         <PanoramaRoot
             {...props}
-            id="A"
+            id="z"
             sceneId="pano-coogee"
             config={config}
             type="multires"

@@ -1,9 +1,10 @@
-import { useState, useEffect, useLayoutEffect, useRef, useMemo } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { Box, Container } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { ApplicationTopBar } from './applicationTopBar';
 import { RequestQuoteFab } from './requestQuoteFab';
 import { Footer } from './footer';
+import { isInView } from '../utility/isInView';
 
 const ApplicationLayoutRoot = styled('div')(({ theme }) => ({
     // display: 'flex',
@@ -20,29 +21,6 @@ const ApplicationLayoutRoot = styled('div')(({ theme }) => ({
     width: '100%'
 }));
 
-
-
-const useVisibility = (offset = 0) => {
-    const [isVisible, setIsVisible] = useState(false);
-    const currentElement = useRef(null);
-  
-    const onScroll = () => {
-      if (!currentElement.current) {
-        setIsVisible(false);
-        return;
-      }
-      const top = currentElement.current.getBoundingClientRect().top;
-      setIsVisible(top + offset >= 0 && top - offset <= window.innerHeight);
-    }
-  
-    useEffect(() => {
-      document.addEventListener('scroll', onScroll, true);
-      return () => document.removeEventListener('scroll', onScroll, true);
-    })
-  
-    return [isVisible, currentElement];
-}
-
 export const ApplicationLayout = (props) => {
     const { children } = props;
 
@@ -55,42 +33,21 @@ export const ApplicationLayout = (props) => {
     
     const { mobileView } = resizeState;
 
+    const [quoteFabHomeShown, quoteFabHomeRef] = isInView();
+
+    // Set app states based on window resize
     useEffect(() => {
         const procResizeState = () => {
             return window.innerWidth < 1080
                 ? setResizeState((prevState) => ({ ...prevState, mobileView: true }))
                 : setResizeState((prevState) => ({ ...prevState, mobileView: false }));
         };
-        const procScrollState = () => {
-            return window.outerHeight - window.scrollY
-        };
-
         procResizeState();
         window.addEventListener("resize", () => procResizeState());
-
         return () => {
             window.removeEventListener("resize", () => procResizeState());
         }
     }, []);
-
-    
-
-    const [beforeCheckoutSubmitShown, beforeCheckoutSubmitRef] = useVisibility();
-    const [rqFabBuffer, setRqFabBuffer] = useState(0);
-
-    const onScroll = () => {
-        let buffer = window.innerHeight - beforeCheckoutSubmitRef.current.getBoundingClientRect().top;
-        if (buffer > 0) {
-            setRqFabBuffer(buffer);
-        } else {
-            setRqFabBuffer(0);
-        }
-    };
-
-    useEffect(() => {
-        document.addEventListener('scroll', onScroll, true);
-        return () => document.removeEventListener('scroll', onScroll, true);
-    });
 
     return (
         <>
@@ -108,8 +65,8 @@ export const ApplicationLayout = (props) => {
                 }}>
                     {children}
                 </Box>
-                <Box ref={beforeCheckoutSubmitRef} sx={{ display: 'flex', justifyContent: 'center'}}>
-                    <RequestQuoteFab pagePos={beforeCheckoutSubmitShown ? 'in-page' : 'floating'} />  
+                <Box ref={quoteFabHomeRef} sx={{ display: 'flex', justifyContent: 'center', height: 140}}>
+                    <RequestQuoteFab pagePos={quoteFabHomeShown ? 'in-page' : 'floating'} />  
                 </Box>
                 <Box sx={{backgroundColor: "background.dark"}}>
                     <Footer />

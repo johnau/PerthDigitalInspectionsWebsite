@@ -36,7 +36,7 @@ const mainTheme = createTheme({
     background: {
       default: '#F9FAFC',
       paper: '#FFFFFF',
-      dark: '#111', //#0e172e
+      dark: '#101010', //#0e172e
       light: '#ccc'
     },
     neutral: {

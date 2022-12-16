@@ -9,6 +9,8 @@ import Image from 'next/image';
 import { MainMenu } from './topbar/mainMenu';
 import { PopupMenu } from './topbar/popupMenu';
 import { PortableWifiOffSharp } from '@mui/icons-material';
+import { useDebouncedEffect } from '../utility/useDebouncedEffect';
+import logoClean from '../public/static/images/logo_clean.svg';
 
 export let interFontTheme = createTheme({
     typography: {
@@ -25,7 +27,7 @@ const NavButton = styled(Button)(({ theme }) => ({
 const ApplicationTopBarRoot = styled(AppBar)(({ theme }) => ({
     backgroundColor: theme.palette.background.dark,
     boxShadow: theme.shadows[8],
-    borderBottom: '1px solid ' + theme.palette.neutral[700]
+    borderBottom: '1px solid ' + theme.palette.neutral[800]
 }));
 
 const InterTypography = styled(Typography)(({ theme }) => ({
@@ -59,9 +61,14 @@ const DesktopLogo = (props) => {
                 top: props.smallMenu ? -35 : -70, 
                 left: props.smallMenu ? -30 : -40, 
                 width: props.smallMenu ? 180 : 350,
-                transition: 'top, left, width 0.3s ease'
+                transition: 'top, left, width 0.3s ease',
+                height: props.smallMenu ? 100 : 200,
+                overflow: 'hidden',
+                cursor: 'pointer'
                 }}>
-                <Image alt="Perth Digital Inspections" height='250' width='350' src="/static/images/logo_clean.svg"/>
+                <Box>
+                    <Image alt="Perth Digital Inspections" height="250" width="350" src={logoClean}/>
+                </Box>
             </Box>
         </NextLink>
     );
@@ -77,31 +84,34 @@ const MobileLogo = (props) => {
                 right: 0, 
                 margin: 'auto', 
                 width: props.smallMenu ? 180 : 350,
-                transition: 'top, left, width 0.3s ease'
+                transition: 'top, left, width 0.3s ease',
+                height: props.smallMenu ? 100 : 200,
+                overflow: 'hidden',
+                cursor: 'pointer'
                 }}>
-                <Image alt="Perth Digital Inspections" height='250' width='350' src="/static/images/logo_clean.svg"/>
+                <Image alt="Perth Digital Inspections" height='250' width='350' src={logoClean}/>
             </Box>
         </NextLink>
     );
 };
 
 export const ApplicationTopBar = ({mobileView, ...props}) => {
-    const [menuOpen, setMenuOpen] = useState(false);
+    // const [menuOpen, setMenuOpen] = useState(false);
     const [smallMenu, setSmallMenu] = useState(false);
 
     const topBarHeightSmall = 60;
     const topBarHeightLarge = 120;
 
-    const handleMobileMenuOpen = (event) => {
-        setMenuOpen(true);
-        alert('menu open');
-    };
-    const handleMobileMenuClose = () => {
-        setMenuOpen(false);
+    // const handleMobileMenuOpen = (event) => {
+    //     setMenuOpen(true);
+    //     alert('menu open');
+    // };
+    // const handleMobileMenuClose = () => {
+    //     setMenuOpen(false);
 
-    };
+    // };
 
-    useEffect(() => {
+    useDebouncedEffect(() => {
       window.onscroll = () => {
         if (window.pageYOffset == 0) {
             setSmallMenu(false);
@@ -113,7 +123,7 @@ export const ApplicationTopBar = ({mobileView, ...props}) => {
             setSmallMenu(false);
         }
       };
-    }, []);
+    }, [], 100);
 
     return (
         <Box {...props}>
