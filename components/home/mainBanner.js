@@ -1,4 +1,5 @@
 import NextLink from 'next/link';
+import React from 'react';
 import Image from "next/image";
 // import { styled } from '@mui/material/styles';
 import styled from '@emotion/styled';
@@ -38,16 +39,36 @@ const CoverImage = styled(Image)(({ theme }) => ({
     objectFit: 'cover'
 }));
 
-const ServiceButton = (props) => (
-    <Button
-        variant="contained"
-        color={props.color}
-        sx={{ m: 2, fontSize: 20, width: 350 }}
-        endIcon={<ChevronRight />}
-    >
-        {props.children}
-    </Button>
-);
+const ServiceButton = React.forwardRef(({ onClick, href, ...props }, ref) => {
+    return (
+        <Button
+            href={href}
+            onClick={onClick}
+            ref={ref}
+            variant="contained"
+            color={props.color}
+            sx={{ m: 2, fontSize: 20, width: 350 }}
+            endIcon={<ChevronRight />}
+        >
+            {props.children}
+        </Button>
+    );
+});
+
+const ViewInteractiveExampleButton = React.forwardRef(({ onClick, href }, ref) => {
+    return (
+        <Button
+            href={href}
+            onClick={onClick}
+            ref={ref}
+            variant="contained"
+            endIcon={<ChevronRight />}
+            sx={{ width: 300 }}
+        >
+            View interactive example
+        </Button>
+    );
+});
 
 export const MainBanner = ({ props }) => {
     // let images = [
@@ -114,12 +135,12 @@ export const MainBanner = ({ props }) => {
                     variant="h6">
                     <em>WELCOME TO</em>
                 </InterTypographyLight>
-                <Box sx={{ width: '100%', height: 400, position: 'relative', top: -40 }}>
+                <Box sx={{ width: '100%', height: 400, position: 'relative', top: -30 }}>
                     {/* <Box sx={{ width: '100%', height: 400, position: 'fixed', top: 0, left: 0 }}> */}
                     <Image alt="" width="650" height="350" src={logoClean} />
                 </Box>
                 <InterTypographyLight
-                    variant="h5"
+                    variant="h6"
                     sx={{ position: 'relative', width: '100%', bottom: 100, textAlign: 'center' }}>
                     <em>Surface Anaylsis, Virtual Tour, and Aerial Photography services for Perth and Peel regions</em>
                 </InterTypographyLight>
@@ -128,30 +149,14 @@ export const MainBanner = ({ props }) => {
             {/* <Stack direction="row" spacing={2} sx={{ position: 'absolute', minWidth: 700, margin: 'auto', left: 0, right: 0, bottom: 30, justifyContent: 'center', zIndex: '99' }}> */}
             <Box sx={{ display: 'flex', flexWrap: 'wrap', width: '50%', position: 'absolute', margin: 'auto', left: 0, right: 0, bottom: 30, justifyContent: 'center' }}>
                 <NextLink href='/services/residential' passHref>
-                    {/* <ServiceButton color="primary">
+                    <ServiceButton color="primary">
                         Residential Services
-                    </ServiceButton> */}
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        sx={{ m: 2, fontSize: 20, width: 350 }}
-                        endIcon={<ChevronRight />}
-                    >
-                        Residential Services
-                    </Button>
+                    </ServiceButton>
                 </NextLink>
                 <NextLink href='/services/commercial' passHref>
-                    {/* <ServiceButton color="secondary">
+                    <ServiceButton color="secondary">
                         Commercial Services
-                    </ServiceButton> */}
-                    <Button
-                        variant="contained"
-                        color="secondary"
-                        sx={{ m: 2, fontSize: 20, width: 350 }}
-                        endIcon={<ChevronRight />}
-                    >
-                        Commercial Services
-                    </Button>
+                    </ServiceButton>
                 </NextLink>
             </Box>
             {/* </Stack> */}
