@@ -1,16 +1,21 @@
 import NextLink from 'next/link';
 import Image from "next/image";
-import { styled } from '@mui/material/styles';
+// import { styled } from '@mui/material/styles';
+import styled from '@emotion/styled';
 
 import { Box, Button, Card, CardActions, CardMedia, CardContent, Link, Stack, Typography } from "@mui/material";
 import Carousel from 'react-material-ui-carousel';
 import mainBannerImage from '../../public/static/images/perth_compressed.png';
 import logoClean from '../../public/static/images/logo_clean.svg';
+
+import { ChevronRight } from '@mui/icons-material';
+import { atHeight } from '../../utility/isInView';
+
 // import { TopExitFade } from '../scroll/scrollAnimation';
 
 const BlackOnWhiteTypography = styled(Typography)(({ theme }) => ({
     // backgroundColor: "rgba(230,230,230,.5)",
-    color: "#222",
+    color: theme.palette.primary.contrastText,
     padding: 4
 }));
 const BlackOnWhiteStack = styled(Stack)(({ theme }) => ({
@@ -32,6 +37,17 @@ const InterTypographyMedium = styled(BlackOnWhiteTypography)(({ theme }) => ({
 const CoverImage = styled(Image)(({ theme }) => ({
     objectFit: 'cover'
 }));
+
+const ServiceButton = (props) => (
+    <Button
+        variant="contained"
+        color={props.color}
+        sx={{ m: 2, fontSize: 20, width: 350 }}
+        endIcon={<ChevronRight />}
+    >
+        {props.children}
+    </Button>
+);
 
 export const MainBanner = ({ props }) => {
     // let images = [
@@ -69,9 +85,10 @@ export const MainBanner = ({ props }) => {
 
             <Box sx={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'background.dark' }}>
                 <Box sx={{ position: 'relative', width: '100%', height: '100%' }}>
-                    <CoverImage src={mainBannerImage} layout='fill' priority />
+                    <CoverImage src={mainBannerImage} layout='fill' priority zIndex="0" />
                 </Box>
             </Box>
+
             <BlackOnWhiteStack
                 spacing={0}
                 sx={{
@@ -87,40 +104,57 @@ export const MainBanner = ({ props }) => {
                     zIndex: '99'
                 }}>
                 <InterTypographyLight
-                    color='primary.contrastText'
                     sx={{
                         position: 'relative',
                         top: 50,
                         width: 200,
                         margin: 'auto',
                         textAlign: 'center',
-                        color: 'primary.contrastText'
                     }}
                     variant="h6">
                     <em>WELCOME TO</em>
                 </InterTypographyLight>
                 <Box sx={{ width: '100%', height: 400, position: 'relative', top: -40 }}>
+                    {/* <Box sx={{ width: '100%', height: 400, position: 'fixed', top: 0, left: 0 }}> */}
                     <Image alt="" width="650" height="350" src={logoClean} />
                 </Box>
                 <InterTypographyLight
                     variant="h5"
-                    sx={{ position: 'relative', width: '100%', bottom: 100, textAlign: 'center', color: 'primary.contrastText' }}>
+                    sx={{ position: 'relative', width: '100%', bottom: 100, textAlign: 'center' }}>
                     <em>Surface Anaylsis, Virtual Tour, and Aerial Photography services for Perth and Peel regions</em>
                 </InterTypographyLight>
             </BlackOnWhiteStack>
 
-            <Stack direction="row" spacing={2} sx={{ position: 'absolute', minWidth: 700, margin: 'auto', left: 0, right: 0, bottom: 30, justifyContent: 'center', zIndex: '99' }}>
+            {/* <Stack direction="row" spacing={2} sx={{ position: 'absolute', minWidth: 700, margin: 'auto', left: 0, right: 0, bottom: 30, justifyContent: 'center', zIndex: '99' }}> */}
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', width: '50%', position: 'absolute', margin: 'auto', left: 0, right: 0, bottom: 30, justifyContent: 'center' }}>
                 <NextLink href='/services/residential' passHref>
-                    <Button variant="contained" color="primary" sx={{ fontSize: 20 }}>
+                    {/* <ServiceButton color="primary">
+                        Residential Services
+                    </ServiceButton> */}
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        sx={{ m: 2, fontSize: 20, width: 350 }}
+                        endIcon={<ChevronRight />}
+                    >
                         Residential Services
                     </Button>
                 </NextLink>
                 <NextLink href='/services/commercial' passHref>
-                    <Button variant="contained" color="secondary" sx={{ fontSize: 20 }}>
+                    {/* <ServiceButton color="secondary">
+                        Commercial Services
+                    </ServiceButton> */}
+                    <Button
+                        variant="contained"
+                        color="secondary"
+                        sx={{ m: 2, fontSize: 20, width: 350 }}
+                        endIcon={<ChevronRight />}
+                    >
                         Commercial Services
                     </Button>
                 </NextLink>
-            </Stack>
+            </Box>
+            {/* </Stack> */}
         </Box>
 
     );

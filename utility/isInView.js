@@ -55,7 +55,7 @@ const percInView = (offset = 0) => {
     return [percVisible, el];
 };
 
-const relativeToWindowCenter = (offset = 0, debounce = 50, zoneWidth = 0.1) => {
+const centerRelativeToWindow = (offset = 0, zoneWidth = 0.1, debounce = 50) => {
     const el = useRef(null);
     const [zone, setZone] = useState(0.0); // max value 1.0
 
@@ -66,7 +66,7 @@ const relativeToWindowCenter = (offset = 0, debounce = 50, zoneWidth = 0.1) => {
         }
         const top = el.current.getBoundingClientRect().top;
         const height = el.current.offsetHeight;
-        const middle = window.innerHeight - (top + (height / 2));
+        const middle = window.innerHeight - (top + (height / 2)) + offset;
         const zones = 1 / zoneWidth;
 
         for (let i = 0; i < zones; i++) {
@@ -74,8 +74,9 @@ const relativeToWindowCenter = (offset = 0, debounce = 50, zoneWidth = 0.1) => {
             const en = zoneWidth * (i + 1) * window.innerHeight;
             const inz = middle > st && middle <= en;
             if (inz) {
-                const zon = i+offset;
-                const value = zon/zones;
+                // const zon = i+offset;
+                // const value = zon/zones;
+                const value = i/zones;
                 if (value > 1.0) value = 1.0;
                 if (value < 0.0) value = 0.0;
                 setZone(value);
@@ -131,10 +132,11 @@ const leavingViewTopPercent = (offset = 0, debounce = 50) => {
         const top = el.current.getBoundingClientRect().top;
         const height = el.current.offsetHeight;
         const bottom = top + height;
-        const perc = bottom / height;
+        const perc = bottom / height - (offset/100);
         if (perc < 0) perc = 0.0;
         if (perc > 1) perc = 1.0;
         setPercLeaving(perc);
+        console.log("Percent leaving: ", perc);
     };
 
     useDebouncedEffect(() => {
@@ -269,7 +271,7 @@ const windowPositionNotification = (h = 0, debounce = 50) => {
 export {
     isInView,
     percInView,
-    relativeToWindowCenter,
+    centerRelativeToWindow,
     leavingView,
     leavingViewTopPercent,
     atHeight,

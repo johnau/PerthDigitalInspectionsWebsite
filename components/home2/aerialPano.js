@@ -45,7 +45,7 @@ export const AerialPano = (props) => {
             panos.map( pano => {
 
                 return (
-                    <Box sx={{width: '100%'}}>
+                    <Box sx={{width: '100%'}} key={pano.id}>
                         {/* <Slide direction="up" in={pano.id === panoIndex} mountOnEnter unmountOnExit> */}
                             <CoverImage src={pano.previewImage} width='2000px' height='1000px' />
                         {/* </Slide> */}

@@ -58,7 +58,7 @@ export const VrTourPanos = (props) => {
 
     const fadeOffset = 4;
 
-    const stickHeight = 450;
+    const stickHeight = 400;
 
     const Section = () => (
         <StickForAWhile stickHeight={stickHeight}>
