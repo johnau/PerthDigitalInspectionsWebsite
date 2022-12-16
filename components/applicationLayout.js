@@ -5,6 +5,7 @@ import { ApplicationTopBar } from './applicationTopBar';
 import { RequestQuoteFab } from './requestQuoteFab';
 import { Footer } from './footer';
 import { isInView } from '../utility/isInView';
+import Properties from '../properties';
 
 const ApplicationLayoutRoot = styled('div')(({ theme }) => ({
     // display: 'flex',
@@ -24,21 +25,22 @@ const ApplicationLayoutRoot = styled('div')(({ theme }) => ({
 export const ApplicationLayout = (props) => {
     const { children } = props;
 
-    const [resizeState, setResizeState] = useState({
-        mobileView: false,
-    });
+
     const [scrollState, setScrollState] = useState({
         bottom: 1000
     });
     
-    const { mobileView } = resizeState;
+    // const { mobileView } = resizeState;
 
     const [quoteFabHomeShown, quoteFabHomeRef] = isInView();
 
-    // Set app states based on window resize
+    // this code is duplicated elsewhere....
+    const [resizeState, setResizeState] = useState({
+        mobileView: false,
+    });
     useEffect(() => {
         const procResizeState = () => {
-            return window.innerWidth < 1080
+            return window.innerWidth < Properties.mobileViewLimit
                 ? setResizeState((prevState) => ({ ...prevState, mobileView: true }))
                 : setResizeState((prevState) => ({ ...prevState, mobileView: false }));
         };
@@ -72,9 +74,8 @@ export const ApplicationLayout = (props) => {
                     <Footer />
                 </Box>
             </ApplicationLayoutRoot>
-        
-            
-            <ApplicationTopBar mobileView={mobileView} />
+                    
+            <ApplicationTopBar mobileView={resizeState.mobileView} />
         </>
     );
 };

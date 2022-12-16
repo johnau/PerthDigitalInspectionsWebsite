@@ -136,7 +136,6 @@ const leavingViewTopPercent = (offset = 0, debounce = 50) => {
         if (perc < 0) perc = 0.0;
         if (perc > 1) perc = 1.0;
         setPercLeaving(perc);
-        console.log("Percent leaving: ", perc);
     };
 
     useDebouncedEffect(() => {

@@ -1,5 +1,5 @@
 import NextLink from 'next/link';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from "next/image";
 // import { styled } from '@mui/material/styles';
 import styled from '@emotion/styled';
@@ -12,7 +12,11 @@ import logoClean from '../../public/static/images/logo_clean.svg';
 import { ChevronRight } from '@mui/icons-material';
 import { atHeight } from '../../utility/isInView';
 
+import { useDebouncedEffect } from '../../utility/useDebouncedEffect';
 // import { TopExitFade } from '../scroll/scrollAnimation';
+
+import Properties from '../../properties';
+import { TopExitFade } from '../scroll/scrollAnimation';
 
 const BlackOnWhiteTypography = styled(Typography)(({ theme }) => ({
     // backgroundColor: "rgba(230,230,230,.5)",
@@ -55,20 +59,104 @@ const ServiceButton = React.forwardRef(({ onClick, href, ...props }, ref) => {
     );
 });
 
-const ViewInteractiveExampleButton = React.forwardRef(({ onClick, href }, ref) => {
+const LogoPositionAnimationBox = styled.div(
+    props => ({
+        left: props.left,
+        top: props.top,
+        transition: 'left 0.3s ease-in, top 1s ease-in',
+        width: '100%',
+        height: 400,
+        position: 'relative',
+        margin: 0,
+        '& div' : {
+            width: props.imgW,
+            height: props.imgH,
+            transition: 'width 0.5s ease, height 0.5s ease, margin 0.5s ease',
+            margin: props.margin,
+        }
+    }),
+);
+
+const LogoAnimation = (props) => {
+    const { children, ...rest } = props;
+    const [left, setLeft] = useState("0%");
+    const [top, setTop] = useState(-30);
+    const [margin, setMargin] = useState(0);
+    const [imageSize, setImageSize] = useState({ width: 640, height: 350});
+
+    const [logoInBar, setLogoInBar] = useState(false);
+    const [resizeState, setResizeState] = useState({
+        mobileView: false,
+    });
+
+    useEffect(() => {
+        const procResizeState = () => {
+            return window.innerWidth < Properties.mobileViewLimit
+                ? setResizeState((prevState) => ({ ...prevState, mobileView: true }))
+                : setResizeState((prevState) => ({ ...prevState, mobileView: false }));
+        };
+        procResizeState();
+        window.addEventListener("resize", () => procResizeState());
+        return () => window.removeEventListener("resize", () => procResizeState());
+    }, []);
+
+    useDebouncedEffect(() => {
+        const onScroll = () => {
+            if (window.pageYOffset == 0) {
+                setLogoInBar(false);
+                return;
+            }
+            if (window.pageYOffset > 150) {
+                setLogoInBar(true);
+            } else {
+                setLogoInBar(false);
+            }
+        };
+
+        document.addEventListener('scroll', () => onScroll(), true);
+        return () => document.removeEventListener('scroll', () => onScroll(), true);
+    }, [], 100);
+
+    useEffect(() => {
+        // if (resizeState.mobileView) {
+        //     setMargin('auto');
+        // } else if (!resizeState.mobileView) {
+        //     setMargin(0);
+        // }
+
+        setMargin('auto'); // not bothering trying to have the logo go to the position on the left for now, always go up
+
+        if (!logoInBar) { // logo on page
+            setTop(-30);
+            setLeft("0%");
+            // setMargin(0);
+            setImageSize(prev => ({...prev, width: 650, height: 350}));
+        } else if (logoInBar && !resizeState.mobileView) { // logo on left
+            setTop(-200);
+            setLeft("0%");
+            // setMargin(0);
+            setImageSize(prev => ({...prev, width: 180, height: 100}));
+        } else if (logoInBar && resizeState.mobileView) { // logo in middle
+            setTop(-200);
+            setLeft("0%");
+            // setMargin('auto');
+            setImageSize(prev => ({...prev, width: 180, height: 100}));
+        }
+    }, [logoInBar, resizeState]);
+
     return (
-        <Button
-            href={href}
-            onClick={onClick}
-            ref={ref}
-            variant="contained"
-            endIcon={<ChevronRight />}
-            sx={{ width: 300 }}
+        <LogoPositionAnimationBox
+            left={left}
+            top={top}
+            imgW={imageSize.width}
+            imgH={imageSize.height}
+            margin={margin}
         >
-            View interactive example
-        </Button>
+            {children}
+        </LogoPositionAnimationBox>
     );
-});
+
+};
 
 export const MainBanner = ({ props }) => {
     // let images = [
@@ -105,7 +193,7 @@ export const MainBanner = ({ props }) => {
                 </Carousel> */}
 
             <Box sx={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'background.dark' }}>
-                <Box sx={{ position: 'relative', width: '100%', height: '100%' }}>
+                <Box sx={{ position: 'relative', width: '100%', height: '100%'}}>
                     <CoverImage src={mainBannerImage} layout='fill' priority zIndex="0" />
                 </Box>
             </Box>
@@ -124,21 +212,29 @@ export const MainBanner = ({ props }) => {
                     justifyContent: 'center',
                     zIndex: '99'
                 }}>
-                <InterTypographyLight
-                    sx={{
-                        position: 'relative',
-                        top: 50,
-                        width: 200,
-                        margin: 'auto',
-                        textAlign: 'center',
-                    }}
-                    variant="h6">
-                    <em>WELCOME TO</em>
-                </InterTypographyLight>
-                <Box sx={{ width: '100%', height: 400, position: 'relative', top: -30 }}>
-                    {/* <Box sx={{ width: '100%', height: 400, position: 'fixed', top: 0, left: 0 }}> */}
-                    <Image alt="" width="650" height="350" src={logoClean} />
-                </Box>
+                <TopExitFade offset={50}>
+                    <InterTypographyLight
+                        sx={{
+                            position: 'relative',
+                            top: 50,
+                            width: 200,
+                            margin: 'auto',
+                            textAlign: 'center',
+                        }}
+                        variant="h6">
+                        <em>WELCOME TO</em>
+                    </InterTypographyLight>
+                </TopExitFade>
+
+
+                {/* <Box sx={{ width: '100%', height: 400, position: 'relative', top: -30 }}> */}
+                <LogoAnimation>
+                    <Box sx={{ position: 'relative', width: 650, height: 350, margin: 'auto'}}>
+                        <Image alt="" layout='fill' src={logoClean} />
+                    </Box>
+                </LogoAnimation>
+                {/* </Box> */}
+
                 <InterTypographyLight
                     variant="h6"
                     sx={{ position: 'relative', width: '100%', bottom: 100, textAlign: 'center' }}>

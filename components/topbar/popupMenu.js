@@ -11,6 +11,7 @@ const MenuBurgerButton = styled(IconButton)(({ theme }) => ({
 }));
 
 export const PopupMenu = (props) => {
+    const { children } = props;
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -23,23 +24,30 @@ export const PopupMenu = (props) => {
     return (
         <>
             <MenuBurgerButton onClick={handleOpen}>
-                <MenuIcon sx={{ width: 40, height: 40, mt: -0.5}}/>
+                <MenuIcon sx={{ width: 40, height: 40, mt: -0.5 }} />
             </MenuBurgerButton>
             <Modal
                 open={open}
                 onClose={handleClose}
-                sx={{ display: 'flex', width: '100%', justifyContent: 'center' }}>
-                <Box sx={{ display: 'flex', flexDirection: 'column', width: 500, height: 700, justifyContent: 'center'}}>
-                    <NavActionButton 
-                    title="Close menu" 
-                    action={handleClose} 
-                    icon={<CloseIcon /> }
-                    sx={{
-                        backgroundColor: 'background.dark', 
-                        pb: 10
-                        }} />
-                    {props.children}
-                    <Box sx={{backgroundColor: 'background.dark', height: 100}} />
+                sx={{ display: 'flex', width: '100%', justifyContent: 'center', top: 16 }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', width: 500, height: 700, justifyContent: 'center' }}>
+                    <NavActionButton
+                        title="Close menu"
+                        action={handleClose}
+                        icon={<CloseIcon />}
+                        sx={{
+                            backgroundColor: 'background.dark',
+                            pb: 10,
+                            alignContent: 'center',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            justifyItems: 'center'
+                        }}
+                    />
+
+                    {children}
+
+                    <Box sx={{ backgroundColor: 'background.dark', height: 100 }} />
                 </Box>
             </Modal>
         </>

@@ -6,7 +6,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { leavingView, centerRelativeToWindow, leavingViewTopPercent, atHeight, windowPositionNotification, inHeightRange } from "../../utility/isInView";
 // import { debounce } from "lodash";
 
-const ANIMATION_TIME = '0.2s';
+const ANIMATION_TIME = '0.15s';
 
 const OpacityAnimationBox = styled.div(
     props => ({
@@ -40,13 +40,7 @@ const WidthAnimationBox = styled.div(
         }
     }),
 );
-const HeightAnimationBox = styled.div(
-    props => ({
-        height: props.animationValue,
-        transition: `height ${ANIMATION_TIME} ease`,
-        margin: 'auto'
-    }),
-);
+
 
 const FocusFade = (props) => {
     const { children, offset, ...rest } = props;
