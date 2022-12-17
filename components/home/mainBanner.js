@@ -1,8 +1,7 @@
 import NextLink from 'next/link';
 import React, { useEffect, useState } from 'react';
 import Image from "next/image";
-// import { styled } from '@mui/material/styles';
-import styled from '@emotion/styled';
+import { styled } from '@mui/material/styles';
 
 import { Box, Button, Card, CardActions, CardMedia, CardContent, Link, Stack, Typography } from "@mui/material";
 import Carousel from 'react-material-ui-carousel';
@@ -58,8 +57,9 @@ const ServiceButton = React.forwardRef(({ onClick, href, ...props }, ref) => {
         </Button>
     );
 });
+ServiceButton.displayName = "ServiceButton";
 
-const LogoPositionAnimationBox = styled.div(
+const LogoPositionAnimationBox = styled('div')(
     props => ({
         left: props.left,
         top: props.top,
@@ -194,7 +194,7 @@ export const MainBanner = ({ props }) => {
 
             <Box sx={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'background.dark' }}>
                 <Box sx={{ position: 'relative', width: '100%', height: '100%'}}>
-                    <CoverImage src={mainBannerImage} layout='fill' priority zIndex="0" />
+                    <CoverImage src={mainBannerImage} layout='fill' priority />
                 </Box>
             </Box>
 
@@ -210,7 +210,7 @@ export const MainBanner = ({ props }) => {
                     top: 100,
                     display: 'flex',
                     justifyContent: 'center',
-                    zIndex: '99'
+                    // zIndex: '99'
                 }}>
                 <TopExitFade offset={50}>
                     <InterTypographyLight

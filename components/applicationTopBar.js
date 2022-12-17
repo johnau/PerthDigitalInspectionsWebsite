@@ -1,8 +1,7 @@
 import NextLink from 'next/link';
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-// import { styled, alpha } from '@mui/material/styles';
-import styled from '@emotion/styled';
+import { styled, alpha } from '@mui/material/styles';
 import { AppBar, Avatar, Badge, Box, Button, Icon, IconButton, Menu, MenuItem, Stack, Toolbar, Tooltip, Typography } from '@mui/material';
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -55,28 +54,28 @@ const LogoIcon = styled(Icon)(({ theme }) => ({
     },
 }));
 
-const DesktopLogo = (props) => {
-    return (
-        <NextLink passHref href='/'>
-            <Box sx={{
-                position: 'absolute',
-                top: props.smallMenu ? -35 : -70,
-                left: props.smallMenu ? -30 : -40,
-                width: props.smallMenu ? 180 : 350,
-                transition: 'width 0.3s ease, top 0.3s ease, left 0.3s ease',
-                height: props.smallMenu ? 100 : 200,
-                overflow: 'hidden',
-                cursor: 'pointer'
-            }}>
-                <Box>
-                    <Image alt="Perth Digital Inspections" height="250" width="350" src={logoClean} />
-                </Box>
-            </Box>
-        </NextLink>
-    );
-};
+// const DesktopLogo = (props) => {
+//     return (
+//         <NextLink passHref href='/'>
+//             <Box sx={{
+//                 position: 'absolute',
+//                 top: props.smallMenu ? -35 : -70,
+//                 left: props.smallMenu ? -30 : -40,
+//                 width: props.smallMenu ? 180 : 350,
+//                 transition: 'width 0.3s ease, top 0.3s ease, left 0.3s ease',
+//                 height: props.smallMenu ? 100 : 200,
+//                 overflow: 'hidden',
+//                 cursor: 'pointer'
+//             }}>
+//                 <Box>
+//                     <Image alt="Perth Digital Inspections" height="250" width="350" src={logoClean} />
+//                 </Box>
+//             </Box>
+//         </NextLink>
+//     );
+// };
 
-const MobileLogoAnimationBox = styled.div(
+const MobileLogoAnimationBox = styled('div')(
     props => ({
         position: 'absolute',
         margin: 'auto',
@@ -196,7 +195,7 @@ const MobileLogo = (props) => {
                     right={right}
                     width={width}
                     height={height}
-                    zIndex='99'
+                    // zIndex='99'
                     scrollDir={scrollDir}
                 >
                     <Image alt="Perth Digital Inspections" width="350" height="200" src={logoClean} />

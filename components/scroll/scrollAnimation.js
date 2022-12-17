@@ -1,6 +1,7 @@
 import { Box } from "@mui/material";
 // import { percInView } from "../utility/isInView";
 import styled from "@emotion/styled";
+// import { styled } from "@mui/system";
 import React, { useEffect, useState, useRef } from "react";
 // import { useDebouncedEffect } from "../utility/useDebouncedEffect";
 import { leavingView, centerRelativeToWindow, leavingViewTopPercent, atHeight, windowPositionNotification, inHeightRange } from "../../utility/isInView";
@@ -8,13 +9,13 @@ import { leavingView, centerRelativeToWindow, leavingViewTopPercent, atHeight, w
 
 const ANIMATION_TIME = '0.15s';
 
-const OpacityAnimationBox = styled.div(
+const OpacityAnimationBox = styled('div')(
     props => ({
         opacity: props.animationValue,
         transition: `opacity ${ANIMATION_TIME} ease-in`,
     }),
 );
-const TextSizeAnimationBox = styled.div(
+const TextSizeAnimationBox = styled('div')(
     props => ({
         '& span, h1, h2': {
             fontSize: props.animationValue,
@@ -22,13 +23,13 @@ const TextSizeAnimationBox = styled.div(
         }
     })
 );
-const StickyBox = styled.div(
+const StickyBox = styled('div')(
     props => ({
         position: props.animationValue,
         top: props.h
     }),
 );
-const WidthAnimationBox = styled.div(
+const WidthAnimationBox = styled('div')(
     props => ({
         width: `${props.animationValue*100}%`,
         transition: `width ${ANIMATION_TIME} ease`,

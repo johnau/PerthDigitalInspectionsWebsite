@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { styled } from '@mui/material/styles';
-import { Box, Button, Stack, Typography } from '@mui/material';
+import { Box, Button, Card, CardMedia, Stack, Typography } from '@mui/material';
 
 import { ApplicationLayout } from '../components/applicationLayout';
 import { TitleBanner } from '../components/titleBanner';
@@ -35,6 +35,8 @@ import { ChevronRight } from '@mui/icons-material';
 
 import NextLink from 'next/link';
 
+import makepropertystandout from '../public/static/images/makepropertystandout.png';
+
 // const LogoTileBgStack = styled(Stack)(({ theme }) => ({
 //     ":before": {
 //         content: `''`,
@@ -58,7 +60,8 @@ const CoverImage = styled(Image)(({ theme }) => ({
 
 const DummyImageForScrollZoomer = () => {
     return (
-        <Box sx={{ position: 'relative', width: '100%', height: 550, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        // <Box sx={{ position: 'relative', width: '100%', height: 550, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <Box sx={{ position: 'relative', width: '100%', height: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <CoverImage src={dummyImage} layout='fill' />
         </Box>
     )
@@ -76,7 +79,7 @@ const SemiBoldTypography = styled(Typography)(({ theme }) => ({
     fontFamily: "InterSemiBold, sans-serif",
 }));
 
-const VirtualToursTitle = () => <SemiBoldTypography variant="h1" sx={{ p: 10, pb: 0, textAlign: 'center', color: "#eee" }}>Immersive Virtual Property Tours</SemiBoldTypography>;
+const SectionTitle = ({ title, ...props }) => <SemiBoldTypography variant="h1" sx={{ p: 10, pb: 0, textAlign: 'center', color: "#eee" }}>{title}</SemiBoldTypography>;
 const AnalysisTitle = () => <SemiBoldTypography variant="h1" sx={{ p: 10, pb: 0, textAlign: 'center', color: "#eee" }}>Property and Structure Analysis</SemiBoldTypography>;
 const AerialPhotoTitle = () => <SemiBoldTypography variant="h1" sx={{ p: 10, pb: 0, textAlign: 'center', color: "#eee" }}>Aerial Photography</SemiBoldTypography>;
 
@@ -94,17 +97,60 @@ const ViewInteractiveExampleButton = React.forwardRef(({ onClick, href }, ref) =
         </Button>
     );
 });
+ViewInteractiveExampleButton.displayName = "ViewInteractiveExampleButton";
+
+
+const IndexSection = ({ title, ...props }) => {
+    const { children, ...rest } = props;
+    const vrTourContentHeight = 800;
+    const titleContentGap = 300;
+
+    const titleStickHeight = 50;
+    const focusFadeOffset = 500;
+
+    return (
+        <>
+            <Box sx={{ py: 10 }}>
+                <StickForAWhile stickHeight={titleStickHeight}>
+                    <TextZoom fontSizeLimit={50} fontSizeRatio={50} offset={5}>
+                        <FocusFade offset={focusFadeOffset}>
+                            <TopExitFade offset={50}>
+                                <Stack direction="column" spacing={2} sx={{ width: '100%', alignItems: 'center', pb: 2 }}>
+                                    <SectionTitle title={title} />
+                                    <NextLink href='/tours/example' passHref legacyBehavior>
+                                        <ViewInteractiveExampleButton />
+                                    </NextLink>
+                                </Stack>
+                            </TopExitFade>
+                        </FocusFade>
+                    </TextZoom>
+                </StickForAWhile>
+                <Box id="stick_A" sx={{ position: "static", width: "100%", height: (titleContentGap + 600) }}>
+                    <Box sx={{ width: "100%", justifyContent: 'center' }}>
+                        <Box id="stick_B" sx={{ height: titleContentGap }} />
+                        <StickForAWhile stickHeight={250} backgroundColor="#fff">
+                            <SizeChange2Step contentHeight={vrTourContentHeight} wid1={0.2} wid2={0.5} wid3={1.0}>
+                                <FocusFade offset={650}>
+                                    <TopExitFade offset={0}>
+                                        {children}
+                                    </TopExitFade>
+                                </FocusFade>
+                            </SizeChange2Step>
+                        </StickForAWhile>
+                        <Box id="stick_C" sx={{ height: 600 }} />
+                    </Box>
+                </Box>
+            </Box>
+            <Box sx={{ width: "100%", height: vrTourContentHeight }} /> {/* Each section must be preceeded by this spacer, except of course first */}
+        </>
+    );
+
+};
+
+
+
 
 const ApplicationIndex = () => {
-
-    const titleStickHeight = 200;
-
-    const titleContentGap = 250;
-    const vrTourContentHeight = 550;
-    const vrTourSectionHeight = vrTourContentHeight + titleContentGap;
-
-    const focusFadeOffset = 600;
-
     return (
         <>
             <Head>
@@ -120,237 +166,54 @@ const ApplicationIndex = () => {
                     </TopExitFade>
                 </Box>
 
-                {/* THESE SECTIONS NEED TO BE EXTRACTED */}
-                {/* THESE SECTIONS NEED TO BE EXTRACTED */}
-                {/* THESE SECTIONS NEED TO BE EXTRACTED */}
-                {/* THESE SECTIONS NEED TO BE EXTRACTED */}
-                {/* THESE SECTIONS NEED TO BE EXTRACTED */}
-
+                <Stack spacing={0} sx={{ bgcolor: "background.dark" }}>
+                    <IndexSection title="Immersive Virtual Property Tours">
+                        <DummyImageForScrollZoomer />
+                    </IndexSection>
+                    <IndexSection title="Property and Structural Analaysis">
+                        <DummyImageForScrollZoomer />
+                    </IndexSection>
+                    <IndexSection title="Aerial Photography">
+                        <DummyImageForScrollZoomer />
+                    </IndexSection>
+                </Stack>
 
                 <Stack spacing={0} sx={{ bgcolor: "background.dark" }}>
-                    <Box sx={{ py: 10 }}>
-                        <StickForAWhile stickHeight={titleStickHeight}>
-                            <TextZoom fontSizeLimit={50} fontSizeRatio={50} offset={5}>
-                                <FocusFade offset={focusFadeOffset}>
-                                    <TopExitFade offset={50}>
-                                        <Stack direction="column" spacing={2} sx={{ width: '100%', alignItems: 'center', pb: 2 }}>
-                                            <VirtualToursTitle />
-                                            <NextLink href='/tours/example' passHref legacyBehavior>
-                                                <ViewInteractiveExampleButton />
-                                            </NextLink>
-                                        </Stack>
-                                    </TopExitFade>
-                                </FocusFade>
-                            </TextZoom>
-                        </StickForAWhile>
-                        {/* Note:
-                            Box (id "stick_A") height determines when the above title moves on up the page
-                            Box (id "stick_B") top determines when the below content will start appearing
-                            Box (id "stick_C") height determines how long the content will stick for, it will be related to "stick_B" top and height of content
-                        */}
-                        <Box id="stick_A" sx={{ position: "static", width: "100%", height: (titleContentGap + vrTourSectionHeight) }}>
-                            <Box id="stick_B" sx={{ width: "100%", justifyContent: 'center' }}>
-                                <Box sx={{ height: titleContentGap }} />
-                                <StickForAWhile stickHeight={400} backgroundColor="#fff">
-                                    <SizeChange2Step contentHeight={550} wid1={0.33} wid2={0.66} wid3={1.0}>
-                                        <FocusFade offset={focusFadeOffset}>
-                                            <TopExitFade offset={50}>
-                                                <DummyImageForScrollZoomer />
-                                            </TopExitFade>
-                                        </FocusFade>
-                                    </SizeChange2Step>
-                                </StickForAWhile>
-                                <Box id="stick_C" sx={{ height: vrTourSectionHeight }} />
-                            </Box>
-                        </Box>
+                    <Box sx={{ height: 400, zIndex: 20 }} >
+                        <TextZoom fontSizeLimit={200} fontSizeRatio={150} offset={0}>
+                            <FocusFade offset={500}>
+                                <TopExitFade offset={20}>
+                                    <Stack direction="column" spacing={2} sx={{ width: '100%', alignItems: 'center', pb: 2, overflow: 'hidden' }}>
+                                        <SemiBoldTypography sx={{ pt: 10, color: 'primary.contrastText' }} noWrap={true}>MAKE YOUR PROPERTY</SemiBoldTypography>
+                                        <SemiBoldTypography sx={{ pb: 0, color: 'primary.contrastText' }} noWrap={true}>STAND OUT!</SemiBoldTypography>
+                                    </Stack>
+                                </TopExitFade>
+                            </FocusFade>
+                        </TextZoom>
                     </Box>
 
-                    {/* 
-                    <VrTourPanos /> 
-                    */}
-
-                    {/* 
-                    <Box sx={{ py: 10, zIndex: 50 }}>
-                        <Box sx={{ py: 10, zIndex: 50 }}>
-                            <StickForAWhile stickHeight={titleStickHeight}>
-                                <TextZoom fontSizeLimit={50} fontSizeRatio={50} offset={5}>
-                                    <FocusFade offset={3}>
-                                        <VirtualToursTitle />
-                                    </FocusFade>
-                                </TextZoom>
-                            </StickForAWhile>
-                            <StickFadeZoom>
-                                <DummyImageForScrollZoomer />
-                            </StickFadeZoom>
-                        </Box>
-                    </Box> 
-                    */}
-
-
-
-
-
-                {/* THESE SECTIONS NEED TO BE EXTRACTED */}
-                {/* THESE SECTIONS NEED TO BE EXTRACTED */}
-                {/* THESE SECTIONS NEED TO BE EXTRACTED */}
-                {/* THESE SECTIONS NEED TO BE EXTRACTED */}
-                {/* THESE SECTIONS NEED TO BE EXTRACTED */}
-
-
-
-
-                    <Box sx={{ width: "100%", height: titleContentGap }} /> {/* Each section must be preceeded by this spacer, except of course first */}
-
-
-
-
-
-
-                    <Box sx={{ py: 10 }}>
-                        <StickForAWhile stickHeight={titleStickHeight}>
-                            <TextZoom fontSizeLimit={50} fontSizeRatio={50} offset={5}>
-                                <FocusFade offset={focusFadeOffset}>
-                                    <TopExitFade offset={50}>
-                                        <Stack direction="column" spacing={2} sx={{ width: '100%', alignItems: 'center', pb: 2 }}>
-                                            <AnalysisTitle />
-                                            <NextLink href='/property-analysis/example' passHref legacyBehavior>
-                                                <ViewInteractiveExampleButton />
-                                            </NextLink>
-                                        </Stack>
-                                    </TopExitFade>
-                                </FocusFade>
-                            </TextZoom>
-                        </StickForAWhile>
-                        {/* <Box sx={{ width: "100%", height: "600px" }} /> */}
-                                                {/* Note:
-                            Box (id "stick_A") height determines when the above title moves on up the page
-                            Box (id "stick_B") top determines when the below content will start appearing
-                            Box (id "stick_C") height determines how long the content will stick for, it will be related to "stick_B" top and height of content
-                        */}
-                        <Box id="stick_A" sx={{ position: "static", width: "100%", height: (titleContentGap + vrTourSectionHeight) }}>
-                            <Box id="stick_B" sx={{ width: "100%", justifyContent: 'center' }}>
-                                <Box sx={{ height: titleContentGap }} />
-                                <StickForAWhile stickHeight={400} backgroundColor="#fff">
-                                    <SizeChange2Step contentHeight={550} wid1={0.33} wid2={0.66} wid3={1.0}>
-                                        <FocusFade offset={focusFadeOffset}>
-                                            <TopExitFade offset={50}>
-                                                <DummyImageForScrollZoomer />
-                                            </TopExitFade>
-                                        </FocusFade>
-                                    </SizeChange2Step>
-                                </StickForAWhile>
-                                <Box id="stick_C" sx={{ height: vrTourSectionHeight }} />
-                            </Box>
-                        </Box>
+                    <Box sx={{ position: 'relative', width: '100%', height: 600, zIndex: 10 }}>
+                        <CoverImage src={makepropertystandout} layout='fill' />
                     </Box>
-
-
-
-
-                {/* THESE SECTIONS NEED TO BE EXTRACTED */}
-                {/* THESE SECTIONS NEED TO BE EXTRACTED */}
-                {/* THESE SECTIONS NEED TO BE EXTRACTED */}
-                {/* THESE SECTIONS NEED TO BE EXTRACTED */}
-                {/* THESE SECTIONS NEED TO BE EXTRACTED */}
-
-
-
-
-
-                <Box sx={{ width: "100%", height: titleContentGap }} /> {/* Each section must be preceeded by this spacer, except of course first */}
-
-
-
-
-                    <Box sx={{ py: 10 }}>
-                        <StickForAWhile stickHeight={titleStickHeight}>
-                            <TextZoom fontSizeLimit={50} fontSizeRatio={50} offset={5}>
-                                <FocusFade offset={focusFadeOffset}>
-                                    <TopExitFade offset={50}>
-                                        <Stack direction="column" spacing={2} sx={{ width: '100%', alignItems: 'center', pb: 2 }}>
-                                            <AerialPhotoTitle />
-                                            <ViewInteractiveExampleButton />
-                                        </Stack>
-                                    </TopExitFade>
-                                </FocusFade>
-                            </TextZoom>
-                        </StickForAWhile>
-                        {/* <Box sx={{ width: "100%", height: "1200px" }} /> */}
-                                                {/* Note:
-                            Box (id "stick_A") height determines when the above title moves on up the page
-                            Box (id "stick_B") top determines when the below content will start appearing
-                            Box (id "stick_C") height determines how long the content will stick for, it will be related to "stick_B" top and height of content
-                        */}
-                        <Box id="stick_A" sx={{ position: "static", width: "100%", height: (titleContentGap + vrTourSectionHeight) }}>
-                            <Box id="stick_B" sx={{ width: "100%", justifyContent: 'center' }}>
-                                <Box sx={{ height: titleContentGap }} />
-                                <StickForAWhile stickHeight={400} backgroundColor="#fff">
-                                    <SizeChange2Step contentHeight={550} wid1={0.33} wid2={0.66} wid3={1.0}>
-                                        <FocusFade offset={focusFadeOffset}>
-                                            <TopExitFade offset={50}>
-                                                <DummyImageForScrollZoomer />
-                                            </TopExitFade>
-                                        </FocusFade>
-                                    </SizeChange2Step>
-                                </StickForAWhile>
-                                <Box id="stick_C" sx={{ height: vrTourSectionHeight }} />
-                            </Box>
-                        </Box>
-                    </Box>
-
-
-
-                    <Box sx={{ width: "100%", height: 470 }} /> {/* Each section must be preceeded by this spacer, except of course first */}
+                    <Box sx={{ height: 1000 }} />
                 </Stack>
 
-                <Stack>
-                    <TextZoom fontSizeLimit={200} fontSizeRatio={150} offset={0}>
-                        <FocusFade offset={focusFadeOffset}>
-                            <TopExitFade offset={50}>
-                                <Stack direction="column" spacing={2} sx={{ width: '100%', alignItems: 'center', pb: 2 }}>
-                                    <SemiBoldTypography sx={{p: 10}} noWrap={true}>MAKE YOUR PROPERTY STAND OUT!</SemiBoldTypography>
-                                </Stack>
-                            </TopExitFade>
-                        </FocusFade>
-                    </TextZoom>
-                </Stack>
+                <Card>
+                    <CardMedia
+                        component="video"
+                        image='/static/images/standout.mp4'
+                        title='title'
+                        mute
+                        loop
+                        autoPlay
+                    />
+                </Card>
 
-                {/* <AerialPano /> */}
-
-                {/* <Panorama /> */}
                 <Stack spacing={0} sx={{ bgcolor: "background.paper" }}>
+                    {/* <AerialPano /> */}
+                    {/* <Panorama /> */}
                     <PanoramaPannellum />
-                    {/* <Box sx={{
-                        width: '100%',
-                        display: 'flex',
-                        justifyContent: 'center'
-                    }}>
-
-                    </Box> */}
-
-                    {/* <TitleBanner title={indexContent.servicesTitle} /> */}
-                    {/* <LogoTileBgStack spacing={16} sx={{ backdropFilter: 'blur(0)', overflow: 'hidden'}}>  */}
-                    {/* For some reason backdropFilter: has to be included for the background to show.... odd */}
-                    {/* {
-                    servicesList.map(element => 
-                        <ServiceBannerComponent key={element.title} pdiService={element} />
-                    )
-                } */}
-                    {/* </LogoTileBgStack> */}
-                    {/* <Box sx={{ display: 'relative' }}>
-                        <ScrollFocusFader steps={3} offset={-0.4}>
-                            <DummyImageForScrollZoomer />
-                        </ScrollFocusFader>
-                        <ScrollFocusZoomer steps={16} offset={-0.5} minZoom={0.1} height="600px" justifyContent="center">
-                            <DummyTextVectorForScrollZoomer />
-                        </ScrollFocusZoomer>
-                        <ScrollFocusZoomer steps={16} offset={0} minZoom={0.25} height="1200px">
-                            <DummyImageForScrollZoomer />
-                        </ScrollFocusZoomer>
-                    </Box> */}
-                    {/* <AboutBanner /> */}
                     <AboutBanner />
-
                     {/* <CompanyBanner /> */}
                 </Stack>
             </Box>

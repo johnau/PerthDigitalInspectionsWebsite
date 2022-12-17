@@ -1,11 +1,11 @@
 import { Box } from "@mui/material";
 import { percInView } from "../utility/isInView";
-import styled from "@emotion/styled";
+import { styled } from "@mui/system";
 import { useEffect, useState } from "react";
 import { useDebouncedEffect } from "../utility/useDebouncedEffect";
 // import useDebounce from "../utility/useDebounce";
 
-const ZoomerBox = styled.div(
+const ZoomerBox = styled('div')(
     // props => ({ width: props.width * props.animationValue })
     props => ({ width: props.animationValue*100+"%" })
 );

@@ -1,11 +1,11 @@
 import { Box } from "@mui/material";
 import { percInView } from "../utility/isInView";
-import styled from "@emotion/styled";
+import { styled } from "@mui/material/styles";
 import { useEffect, useState } from "react";
 import { useDebouncedEffect } from "../utility/useDebouncedEffect";
 
 
-const AnimatedBox = styled.div(
+const AnimatedBox = styled('div')(
     props => ({ opacity: props.animationValue })
 );
 

@@ -32,6 +32,7 @@
     "react-dom": "18.2.0",
     "react-material-ui-carousel": "^3.4.2",
     "react-pannellum": "^0.2.13",
+    "sharp": "^0.31.2",
     "slate": "^0.82.1",
     "slate-history": "^0.66.0",
     "slate-react": "^0.83.1",

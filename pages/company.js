@@ -11,23 +11,23 @@ const InterTypography = styled(Typography)(({ theme }) => ({
     padding: 4
 }));
 
-const LogoTileBgStack = styled(Stack)(({ theme }) => ({
-    ":before" : {
-        content: `''`,
-        position: 'fixed',
-        width: '200%',
-        height: '200%',
-        top: '-50%',
-        left: '-50%',
-        zIndex: '-1',
-        background: "url('/static/images/logo_clean_black.svg')",
-        backgroundRepeat: 'repeat', 
-        backgroundSize: '80px 50px',
-        transform: 'rotate(22.5deg)',
-        backdropFilter: 'brightness(20%)'
-      }
+// const LogoTileBgStack = styled(Stack)(({ theme }) => ({
+//     ":before" : {
+//         content: `''`,
+//         position: 'fixed',
+//         width: '200%',
+//         height: '200%',
+//         top: '-50%',
+//         left: '-50%',
+//         zIndex: '-1',
+//         background: "url('/static/images/logo_clean_black.svg')",
+//         backgroundRepeat: 'repeat', 
+//         backgroundSize: '80px 50px',
+//         transform: 'rotate(22.5deg)',
+//         backdropFilter: 'brightness(20%)'
+//       }
     
-}));
+// }));
 
 const GreyBox = styled(Box)(({ theme }) => ({
     backgroundColor: theme.palette.background.light
