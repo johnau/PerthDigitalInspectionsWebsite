@@ -198,16 +198,6 @@ const ApplicationIndex = () => {
                     <Box sx={{ height: 1000 }} />
                 </Stack>
 
-                <Card>
-                    <CardMedia
-                        component="video"
-                        image='/static/images/standout.mp4'
-                        title='title'
-                        mute
-                        loop
-                        autoPlay
-                    />
-                </Card>
 
                 <Stack spacing={0} sx={{ bgcolor: "background.paper" }}>
                     {/* <AerialPano /> */}

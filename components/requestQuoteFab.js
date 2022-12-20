@@ -37,6 +37,7 @@ export const RequestQuoteFab = ({ pagePos, ...props }) => {
                 bottom: pagePos === 'floating' ? 40 : 0,
                 transition: 'bottom, margin 0.4s ease',
                 my: pagePos === 'floating' ? 0 : 5,
+                zIndex: 1000
             }}
         >
             <DarkFab variant="extended" aria-label="add"
